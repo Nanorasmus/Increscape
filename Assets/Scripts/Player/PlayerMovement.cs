@@ -13,18 +13,36 @@ public class PlayerMovement : MonoBehaviour
     public float baseJumpPower = 5;
     public float maxJumpPower;
     public float jumpPower;
-    public bool canJump = true;
+    public int jumps = 1;
 
     private Rigidbody2D rb;
 
+    private int jumpsLeft;
+
+    // Sets jumps to max
+    public void SetJumps()
+    {
+        jumpsLeft = jumps;
+    }
+
+    // Sets jumps to specified amount
+    public void SetJumps(int toAmount)
+    {
+        jumpsLeft = toAmount;
+    }
+
     private void Start()
     {
+        // Walk System Init
         maxSpeed = baseSpeed;
         speed = baseSpeed;
 
+        // Jump System Init
         maxJumpPower = baseJumpPower;
         jumpPower = baseJumpPower;
+        jumpsLeft = jumps;
 
+        // Getting References
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -33,9 +51,9 @@ public class PlayerMovement : MonoBehaviour
         float move = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
         bool jump = false;
 
-        if (canJump && Input.GetKeyDown(KeyCode.Space))
+        if (jumpsLeft > 0 && Input.GetKeyDown(KeyCode.Space))
         {
-            canJump = false;
+            jumpsLeft--;
             jump = true;
         }
 

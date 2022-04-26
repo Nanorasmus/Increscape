@@ -11,8 +11,8 @@ public class PlayerGroundCheck : MonoBehaviour
         Identifier otherIdentifier = collision.gameObject.GetComponent<Identifier>();
         if (otherIdentifier != null)
         {
-            if (otherIdentifier.identifiers.Contains("Ground")) playerMovement.canJump = true;
-            else if (otherIdentifier.identifiers.Contains("NoJump")) playerMovement.canJump = false;
+            if (otherIdentifier.identifiers.Contains("Ground")) playerMovement.SetJumps();
+            else if (otherIdentifier.identifiers.Contains("NoJump")) playerMovement.SetJumps(0);
         }
     }
 }
